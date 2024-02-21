@@ -18,6 +18,7 @@
         {{ produit.nom }}
         </v-card-title>
         <h3>{{ produit.qte }}</h3>
+        <v-btn @click="modifQuantite(produit,produit.qte-1)">-</v-btn>
         <v-btn @click="modifQuantite(produit,produit.qte+1)">+</v-btn>
         </v-card>
         </v-col>
@@ -50,16 +51,16 @@
     
     function modifQuantite(pr,qte) {
     console.log(pr);
-    pr.modif_qte(qte);
-
+    
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const fetchOptions = {
     method: "PUT",
     headers: myHeaders,
-    body: JSON.stringify(pr),
+    body: JSON.stringify({id:pr.id,nom:pr.nom,qte:qte,photo:pr.URL_photo}),
     };
-    console.log(JSON.stringify(pr));
+
+    console.log(pr);
     fetch(url, fetchOptions)
         .then((response) =>{ return response.json();
         })

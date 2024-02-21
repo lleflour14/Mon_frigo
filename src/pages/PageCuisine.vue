@@ -1,24 +1,25 @@
 <template>
   <div>
     <img src="@/assets/cuisine.jpg" alt="cuisine" class="cuisine-image" />
+    
+    <v-btn to="/PageFrigo" class="object frigo">
     <img
       src="@/assets/frigo_ext.jpg"
       alt="frigo"
       class="object frigo"
-      to="/PageFrigo"
-    />
+    /> </v-btn>
+    <v-btn to="/PagePoubelle" class="object poubelle">
     <img
       src="@/assets/poubelle.jpg"
       alt="poubelle"
       class="object poubelle"
-      @click="ouvrePoubellePage"
-    />
+    /></v-btn>
+    <v-btn to="/PageDrive" class="object ordi">
     <img
       src="@/assets/ordi.jpg"
       alt="ordi"
       class="object ordi"
-      @click="ouvreOrdiPage"
-    />
+    /></v-btn>
   </div>
 </template>
 
@@ -47,14 +48,14 @@
 .poubelle {
   top: 50%;
   left: 10%;
-  height: 20%;
+  height: 40%;
   transform: translate(-50%, -50%);
 }
 
 .ordi {
   top: 50%;
   left: 90%;
-  height: 20%;
+  height: 40%;
   transform: translate(-50%, -50%);
 }
 </style>
