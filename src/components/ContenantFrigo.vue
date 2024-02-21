@@ -17,8 +17,7 @@
         <v-card-title>
         {{ produit.nom }}
         </v-card-title>
-        <v-btn @click="modifQuantite(produit,produit.qte-1)">-</v-btn>
-        <h6>{{ produit.qte }}</h6>
+        <h3>{{ produit.qte }}</h3>
         <v-btn @click="modifQuantite(produit,produit.qte+1)">+</v-btn>
         </v-card>
         </v-col>
