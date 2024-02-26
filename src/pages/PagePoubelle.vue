@@ -1,8 +1,12 @@
 <template>
-    <v-container>Poubelle</v-container>
+    <v-container class="texte">Jetez vos aliments ici : </v-container>
     <PoubelleList></PoubelleList>
    </template>
-   <script setup>
+<script setup>
         import PoubelleList from '@/components/PoubelleList.vue';
 
-   </script>
+</script>
+
+<style scoped>
+
+</style>

@@ -1,30 +1,56 @@
 <template>
+    <div class="monFrigo">
     <v-row dense>
-        <v-col
+        <v-col class="rangement"
         v-for="produit in listeFrigo"
         :key="produit.id"
-        cols="12"
-        sm="6"
+        cols="2"
+        sm="15"
         md="3"
         lg="2"
         xl="2">
-        <v-card color="primary">
+        <v-card color="#1867C0" class="carte">
         <v-img
         :src="produit.URL_photo"
-        height="100px"
+        height="180px"
         cover
         ></v-img>
         <v-card-title>
         {{ produit.nom }}
         </v-card-title>
-        <h3>{{ produit.qte }}</h3>
+        <h4>
         <v-btn @click="modifQuantite(produit,produit.qte-1)">-</v-btn>
+        {{ produit.qte }}
         <v-btn @click="modifQuantite(produit,produit.qte+1)">+</v-btn>
+        </h4>
         </v-card>
         </v-col>
        </v-row>
+
+    </div>
     </template>
-    
+
+<style scoped>
+.monFrigo{
+    background-image: url(../assets/frigo_int.png);
+    background-repeat: repeat-y;
+
+
+}
+
+.carte{
+    grid-template-columns: 2;
+    margin-top: 10px;
+}
+
+.rangement{
+    display: grid;
+    grid-template-columns: 1;
+    margin-left: 100px;
+}
+
+</style>
+
     <script setup>
     import { onMounted, reactive } from 'vue'
     import Produit from "../Produit"
@@ -50,7 +76,11 @@
     }
     
     function modifQuantite(pr,qte) {
-    console.log(pr);
+    console.log(qte);
+    if(qte<=0){
+        console.log("oui");
+        supprProduit(pr.id);
+    }
     
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -70,7 +100,21 @@
         })
         .catch((error) => console.log(error));
     }
-    
+function supprProduit(idProd) {
+    const fetchOptions = {
+    method: "DELETE", // je dis que je veux delete
+    };
+    fetch(url+"/"+idProd, fetchOptions)
+        .then((response) =>{ return response.json()
+        })
+        .then((dataJSON) => {
+            console.log(dataJSON); //renvoie : {"status" : 0 ou 1}, savoir si ça a marché ou non
+            getProduit() // récup des données de la BDD (dont le produit suppr)
+           })
+        .catch((error) => console.log(error));
+}
+
+
     onMounted(()=>{ 
         getProduit()
     })

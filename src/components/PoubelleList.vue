@@ -1,5 +1,5 @@
 <template>
-<v-row dense>
+    <v-row dense>
     <v-col
     v-for="produit in listeFrigo"
     :key="produit.id"
@@ -8,19 +8,22 @@
     md="3"
     lg="2"
     xl="2">
-    <v-card color="primary">
+    <v-card color="#1867C0">
     <v-img
     :src="produit.URL_photo"
-    height="100px"
+    height="200px"
     cover
     ></v-img>
     <v-card-title>
     {{ produit.nom }}
     </v-card-title>
-    <v-btn @click="supprProduit(produit.id)">Suppression</v-btn>
+    <v-btn @click="supprProduit(produit.id)">
+    <img src="@/assets/delete-circle.svg" alt="cercle-poubelle" class="delete"/>
+    </v-btn>
     </v-card>
     </v-col>
    </v-row>
+
 </template>
 
 <script setup>
@@ -65,3 +68,9 @@ onMounted(()=>{
     getProduit()
 })
 </script>
+
+<style scoped>
+.delete{
+    height: 30px;
+}
+</style>

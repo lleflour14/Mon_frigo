@@ -1,10 +1,16 @@
 <template>
-<form @submit.prevent="ajoutProduit(nom,qte,photo)">
+<form id="drive" @submit.prevent="ajoutProduit(nom,qte,photo)">
 <input type="text" v-model="nom" placeholder="Que voulez-vous ?" required/>
 <input type="number" v-model="qte" min="1" max="100" required/>
 <input type="text" v-model="photo" placeholder="URL photo ?" />
-<input type="submit" value="valider" />
+<button type="submit">Ajoutez au frigo</button>
 </form>
+<br><br>
+<ul v-for="produit in listeAjouts"
+        :key="produit.id">
+    <li > {{produit.qte}}  {{ produit.nom }} a/ont été ajouté </li>
+</ul>
+
 </template>
     
     <script setup>
@@ -13,6 +19,7 @@
     import Produit from "../Produit"
     const url = "https://webmmi.iut-tlse3.fr/~pecatte/frigo/public/16/produits";
     const listeFrigo = reactive([]); //reactive : données surveillée, réagit aux modifs, actualise,
+    const listeAjouts = reactive([]);
     let nom = ""
     let photo= ""
     let qte=1
@@ -42,18 +49,55 @@
     headers: myHeaders,
     body: JSON.stringify({ nom : n,photo:p,qte:q }),
     };
-    
     fetch(url, fetchOptions)
         .then((response) =>{ return response.json()
         })
         .then((dataJSON) => {
             console.log(dataJSON); //renvoie : {"status" : 0 ou 1}, savoir si ça a marché ou non
+            listeAjouts.push(new Produit("",n,q,p));
             getProduit() // récup des données de la BDD (dont le new "produit" ajouté)
            })
         .catch((error) => console.log(error));
+
 }
     
     onMounted(()=>{ 
         getProduit()
     })
     </script>
+
+
+
+<style scoped>
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+ul{
+    background-color: #1867C0;
+    color: white;
+}
+input{
+    padding: 10px;
+  background-color: #1867C0; 
+  color: white;
+
+  border: #4682B4;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  background-color: black; 
+  color: white;
+  border-radius: 25px;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+</style>
