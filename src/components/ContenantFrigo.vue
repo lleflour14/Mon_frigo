@@ -4,11 +4,9 @@
         <v-col class="rangement"
         v-for="produit in listeFrigo"
         :key="produit.id"
-        cols="2"
-        sm="15"
-        md="3"
-        lg="2"
-        xl="2">
+        cols="30"
+        sm="2"
+        >
         <v-card color="#1867C0" class="carte">
         <v-img
         :src="produit.URL_photo"
@@ -39,13 +37,10 @@
 }
 
 .carte{
-    grid-template-columns: 2;
     margin-top: 10px;
 }
 
 .rangement{
-    display: grid;
-    grid-template-columns: 1;
     margin-left: 100px;
 }
 
